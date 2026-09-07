@@ -62,7 +62,7 @@ const FilterButton = styled(motion.button)`
 
 const ProjectsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
   gap: var(--spacing-xl);
 `;
 
@@ -92,6 +92,10 @@ const ProjectCard = styled(motion.div)`
 
 const ProjectContent = styled.div`
   padding: var(--spacing-xl);
+
+  @media (max-width: 600px) {
+    padding: var(--spacing-lg);
+  }
 `;
 
 const ProjectVisual = styled.div`
@@ -105,6 +109,10 @@ const ProjectVisual = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  @media (max-width: 600px) {
+    height: 180px;
   }
 `;
 

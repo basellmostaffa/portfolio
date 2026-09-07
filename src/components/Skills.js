@@ -63,6 +63,11 @@ const DashboardLabel = styled.span`
   font-family: monospace;
   font-size: 0.82rem;
   letter-spacing: 0.04em;
+
+  @media (max-width: 600px) {
+    font-size: 0.72rem;
+    line-height: 1.4;
+  }
 `;
 
 const Status = styled.span`
@@ -97,6 +102,10 @@ const DashboardMetrics = styled.div`
 const Metric = styled.div`
   padding: var(--spacing-lg);
   border-right: 1px solid var(--border-color);
+
+  @media (max-width: 600px) {
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
 
   &:last-child {
     border-right: 0;

@@ -10,6 +10,11 @@ const HeroSection = styled.section`
   background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
   position: relative;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    min-height: auto;
+    padding: var(--spacing-3xl) 0 var(--spacing-2xl);
+  }
 `;
 
 const HeroContainer = styled.div`
@@ -84,6 +89,12 @@ const Description = styled(motion.p)`
   margin-bottom: var(--spacing-xl);
   line-height: 1.7;
   max-width: 500px;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;
 
 const CTAButton = styled(motion.button)`
@@ -97,6 +108,11 @@ const CTAButton = styled(motion.button)`
   cursor: pointer;
   transition: all var(--transition-fast);
   margin-bottom: var(--spacing-xl);
+
+  @media (max-width: 480px) {
+    width: 100%;
+    margin-bottom: var(--spacing-sm);
+  }
 
   &:hover {
     transform: translateY(-2px);
@@ -117,6 +133,16 @@ const SecondaryButton = styled(motion.a)`
   margin: 0 0 var(--spacing-xl) var(--spacing-sm);
   transition: all var(--transition-fast);
 
+  @media (max-width: 768px) {
+    margin-left: 0;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: var(--spacing-lg);
+  }
+
   &:hover {
     border-color: var(--primary-color);
     color: var(--primary-color);
@@ -135,6 +161,11 @@ const StoryNote = styled(motion.p)`
   margin: 0 0 var(--spacing-xl);
   max-width: 540px;
   line-height: 1.7;
+
+  @media (max-width: 768px) {
+    text-align: left;
+    font-size: 0.95rem;
+  }
 `;
 
 const SocialLinks = styled(motion.div)`
@@ -195,6 +226,11 @@ const ImageContainer = styled.div`
   @media (max-width: 768px) {
     width: 300px;
     height: 300px;
+  }
+
+  @media (max-width: 400px) {
+    width: 240px;
+    height: 240px;
   }
 `;
 

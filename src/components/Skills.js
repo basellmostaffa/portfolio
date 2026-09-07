@@ -169,6 +169,7 @@ const WorkflowStep = styled.div`
 
 const SkillCard = styled(motion.div)`
   background-color: var(--bg-secondary);
+  min-height: 190px;
   padding: var(--spacing-xl);
   border-radius: var(--radius-xl);
   border: 1px solid var(--border-color);

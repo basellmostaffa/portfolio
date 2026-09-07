@@ -191,7 +191,7 @@ const Header = () => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <img src="/favicon.svg?v=2" alt="" />
+          <img src="/favicon.svg?v=3" alt="" />
         </Logo>
 
         <NavLinks>

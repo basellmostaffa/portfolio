@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaTwitter, FaInstagram, FaFacebook } from 'react-icons/fa';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';;
 
 const HeroSection = styled.section`
   min-height: 100vh;
@@ -166,15 +166,6 @@ const BackgroundDecoration = styled.div`
   z-index: 1;
 `;
 
-const FloatingElement = styled(motion.div)`
-  position: absolute;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  opacity: 0.1;
-  z-index: 1;
-`;
 
 const Hero = () => {
   const [text, setText] = useState('');

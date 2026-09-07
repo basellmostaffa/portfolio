@@ -214,6 +214,7 @@ const ProjectButton = styled.a`
 
 const ProjectGallery = ({ project }) => {
   const [activeImage, setActiveImage] = useState(0);
+  const [showEvidence, setShowEvidence] = useState(false);
   const images = project.images || [project.image];
 
   return (
@@ -223,11 +224,17 @@ const ProjectGallery = ({ project }) => {
           src={images[activeImage]}
           alt={`${project.title} screenshot ${activeImage + 1}`}
           loading="lazy"
-          onError={(event) => { event.currentTarget.style.display = 'none'; }}
+          onLoad={() => setShowEvidence(false)}
+          onError={(event) => {
+            event.currentTarget.style.display = 'none';
+            setShowEvidence(true);
+          }}
         />
-        <Evidence>
-          {project.evidence.map((line) => <div key={line}>&gt; <span>{line}</span></div>)}
-        </Evidence>
+        {showEvidence && (
+          <Evidence>
+            {project.evidence.map((line) => <div key={line}>&gt; <span>{line}</span></div>)}
+          </Evidence>
+        )}
       </ProjectVisual>
 
       {images.length > 1 && (

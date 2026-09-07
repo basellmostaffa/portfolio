@@ -40,6 +40,7 @@ const SkillsGrid = styled.div`
   display: grid;
   grid-template-columns: minmax(280px, 0.8fr) minmax(320px, 1.2fr);
   gap: var(--spacing-xl);
+  align-items: start;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;

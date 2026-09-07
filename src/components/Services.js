@@ -189,7 +189,7 @@ const Services = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <SectionTitle>My Services</SectionTitle>
+          <SectionTitle>My SOC Focus Areas</SectionTitle>
           <SectionSubtitle>
             The areas I am actively building through labs, training, and documented projects.
           </SectionSubtitle>

@@ -40,6 +40,27 @@ const Greeting = styled(motion.h1)`
   font-family: var(--font-secondary);
 `;
 
+const Availability = styled(motion.div)`
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+  color: var(--success-color);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+
+  &::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.14);
+  }
+`;
+
 const Name = styled(motion.h2)`
   font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 800;
@@ -202,7 +223,7 @@ const BackgroundDecoration = styled.div`
 
 const Hero = () => {
   const [text, setText] = useState('');
-  const fullText = "SOC Analyst Candidate | Blue Team | Detection Engineering";
+  const fullText = "SOC Internship Candidate | Blue Team | Detection Engineering";
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -236,6 +257,14 @@ const Hero = () => {
 
       <HeroContainer>
         <HeroContent>
+          <Availability
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            Open to SOC Level 1 internships
+          </Availability>
+
           <Greeting
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -266,9 +295,9 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
           >
-            I am a cybersecurity student building a practical path into Blue Team operations.
-            My work connects the real-world discipline of supporting 600+ users with the investigative
-            mindset of a SOC analyst: collect the evidence, understand the behavior, and test the detection.
+            I am a cybersecurity undergraduate turning hands-on IT experience into a focused path
+            toward SOC operations. I support real users by day, then build and test detections in my
+            home lab to understand what suspicious activity looks like in the evidence.
           </Description>
 
           <StoryNote
@@ -276,8 +305,8 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}
           >
-            From imaging endpoints and troubleshooting networks at Pinnacle Misr, to building a
-            multi-VM SOC lab with Wazuh, Elastic, and FortiGate, I document the full path from signal to story.
+            The story so far: endpoint deployment and infrastructure support at Pinnacle Misr,
+            incident-response training at DEPI, and a multi-VM SOC lab built with Wazuh, Elastic, and FortiGate.
           </StoryNote>
           
           <CTAButton

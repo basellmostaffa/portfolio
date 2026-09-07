@@ -198,7 +198,7 @@ const About = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <SectionTitle>About Me</SectionTitle>
+          <SectionTitle>From IT Support to SOC</SectionTitle>
           <SectionSubtitle>
               Cybersecurity undergraduate, SOC Analyst candidate, and IT Support &amp; System Administration
               Intern building practical experience across security operations and live IT environments.

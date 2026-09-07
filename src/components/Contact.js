@@ -315,22 +315,15 @@ const Contact = () => {
 
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSuccess(true);
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
-      });
-      
-      // Hide success message after 5 seconds
-      setTimeout(() => {
-        setIsSuccess(false);
-      }, 5000);
-    }, 2000);
+    const mailto = `mailto:baselmostafa16@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`
+    )}`;
+
+    window.location.href = mailto;
+    setIsSubmitting(false);
+    setIsSuccess(true);
+
+    setTimeout(() => setIsSuccess(false), 5000);
   };
 
   return (
@@ -461,7 +454,7 @@ const Contact = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                Thank you! Your message has been sent successfully. I'll get back to you soon!
+                Your email app should open with the message. Send it there to complete the inquiry.
               </SuccessMessage>
             )}
           </ContactForm>

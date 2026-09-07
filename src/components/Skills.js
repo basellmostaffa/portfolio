@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { FaSearch, FaShieldAlt, FaBullseye, FaNetworkWired, FaServer, FaCode, FaArrowRight } from 'react-icons/fa';
+import { FaSearch, FaShieldAlt, FaBullseye, FaNetworkWired, FaServer, FaTerminal, FaArrowRight } from 'react-icons/fa';
 
 const SkillsSection = styled.section`
   padding: var(--spacing-3xl) 0;
@@ -34,6 +34,95 @@ const SectionSubtitle = styled.p`
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.7;
+`;
+
+const Dashboard = styled.div`
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  background: var(--bg-secondary);
+  overflow: hidden;
+`;
+
+const DashboardBar = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-color);
+
+  @media (max-width: 600px) {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+`;
+
+const DashboardLabel = styled.span`
+  color: var(--text-secondary);
+  font-family: monospace;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+`;
+
+const Status = styled.span`
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--success-color);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+
+  &::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
+  }
+`;
+
+const DashboardMetrics = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-bottom: 1px solid var(--border-color);
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const Metric = styled.div`
+  padding: var(--spacing-lg);
+  border-right: 1px solid var(--border-color);
+
+  &:last-child {
+    border-right: 0;
+  }
+
+  @media (max-width: 600px) {
+    border-right: 0;
+    border-bottom: 1px solid var(--border-color);
+
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+`;
+
+const MetricValue = styled.strong`
+  display: block;
+  color: var(--text-primary);
+  font-size: 1.45rem;
+  line-height: 1;
+  margin-bottom: var(--spacing-xs);
+`;
+
+const MetricLabel = styled.span`
+  color: var(--text-muted);
+  font-size: 0.8rem;
 `;
 
 const SkillsGrid = styled.div`
@@ -182,11 +271,11 @@ const Skills = () => {
       tools: ["Windows Server", "AD", "Linux", "VMware"]
     },
     {
-      name: "Web Development",
-      description: "A supporting skill for clear security tooling and documentation.",
-      icon: FaCode,
+      name: "Security Automation & Scripting",
+      description: "Use lightweight scripts to support investigation and repeatable lab work.",
+      icon: FaTerminal,
       color: "#64748b",
-      tools: ["Python", "PowerShell", "Git", "JavaScript"]
+      tools: ["Python", "PowerShell", "CMD", "Git"]
     }
   ];
 
@@ -205,29 +294,41 @@ const Skills = () => {
           </SectionSubtitle>
         </SectionHeader>
 
-        <SkillsGrid>
-          <WorkflowCard
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-          >
-            <div>
-              <SkillHeader>
-                <SkillIcon><FaShieldAlt /></SkillIcon>
-                <SkillInfo>
-                  <SkillName>Signal to Story</SkillName>
-                  <SkillLevel>My practical Blue Team workflow</SkillLevel>
-                </SkillInfo>
-              </SkillHeader>
-              <Workflow>
-                {['Collect telemetry', 'Triage the alert', 'Investigate behavior', 'Map the technique', 'Test the detection'].map((step) => (
-                  <WorkflowStep key={step}><FaArrowRight />{step}</WorkflowStep>
-                ))}
-              </Workflow>
-            </div>
-          </WorkflowCard>
+        <Dashboard>
+          <DashboardBar>
+            <DashboardLabel>SOC / PRACTICE ENVIRONMENT / CAPABILITIES</DashboardLabel>
+            <Status>Operational</Status>
+          </DashboardBar>
 
-          {skills.map((skill, index) => (
+          <DashboardMetrics>
+            <Metric><MetricValue>5</MetricValue><MetricLabel>monitored endpoints</MetricLabel></Metric>
+            <Metric><MetricValue>2</MetricValue><MetricLabel>SIEM stacks deployed</MetricLabel></Metric>
+            <Metric><MetricValue>4</MetricValue><MetricLabel>malware reports documented</MetricLabel></Metric>
+          </DashboardMetrics>
+
+          <SkillsGrid>
+            <WorkflowCard
+              initial={{ opacity: 0, y: 30 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6 }}
+            >
+              <div>
+                <SkillHeader>
+                  <SkillIcon><FaShieldAlt /></SkillIcon>
+                  <SkillInfo>
+                    <SkillName>Signal to Story</SkillName>
+                    <SkillLevel>My practical Blue Team workflow</SkillLevel>
+                  </SkillInfo>
+                </SkillHeader>
+                <Workflow>
+                  {['Collect telemetry', 'Triage the alert', 'Investigate behavior', 'Map the technique', 'Test the detection'].map((step) => (
+                    <WorkflowStep key={step}><FaArrowRight />{step}</WorkflowStep>
+                  ))}
+                </Workflow>
+              </div>
+            </WorkflowCard>
+
+            {skills.map((skill, index) => (
             <SkillCard
               key={skill.name}
               initial={{ opacity: 0, y: 30 }}
@@ -249,8 +350,9 @@ const Skills = () => {
                 {skill.tools.map((tool) => <ToolTag key={tool}>{tool}</ToolTag>)}
               </ToolList>
             </SkillCard>
-          ))}
-        </SkillsGrid>
+            ))}
+          </SkillsGrid>
+        </Dashboard>
       </Container>
     </SkillsSection>
   );

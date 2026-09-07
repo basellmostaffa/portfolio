@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { 
-  FaCode, 
   FaShieldAlt, 
-  FaMobile, 
   FaBug,
   FaSearch,
-  FaLock
+  FaLock,
+  FaNetworkWired,
+  FaTerminal
 } from 'react-icons/fa';
 
 const ServicesSection = styled.section`
@@ -164,7 +164,7 @@ const Services = () => {
     {
       title: "Network Security",
       description: "Applying CCNA networking foundations to design and secure small enterprise network topologies.",
-      icon: FaCode,
+      icon: FaNetworkWired,
       features: ["VLANs", "OSPF Routing", "ACLs", "Cisco Packet Tracer"]
     },
     {
@@ -174,10 +174,10 @@ const Services = () => {
       features: ["SPF/DKIM/DMARC", "URL Analysis", "Attachment Analysis", "IOC Documentation"]
     },
     {
-      title: "Web Development",
-      description: "Maintaining a front-end foundation for building clear, responsive interfaces and security-minded web projects.",
-      icon: FaMobile,
-      features: ["HTML & CSS", "JavaScript", "Responsive UI", "Secure Coding Basics"]
+      title: "Security Automation & Scripting",
+      description: "Using scripting fundamentals to make security investigations and lab tasks more repeatable.",
+      icon: FaTerminal,
+      features: ["Python Fundamentals", "PowerShell Basics", "CMD", "Git Workflows"]
     }
   ];
 

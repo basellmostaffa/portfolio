@@ -127,19 +127,28 @@ const MetricLabel = styled.span`
 
 const SkillsGrid = styled.div`
   display: grid;
-  grid-template-columns: minmax(280px, 0.8fr) minmax(320px, 1.2fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--spacing-xl);
   align-items: start;
 
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (max-width: 600px) {
     grid-template-columns: 1fr;
   }
 `;
 
 const Workflow = styled.div`
   display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: var(--spacing-sm);
   margin-top: var(--spacing-lg);
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const WorkflowStep = styled.div`
@@ -172,6 +181,7 @@ const SkillCard = styled(motion.div)`
 `;
 
 const WorkflowCard = styled(SkillCard)`
+  grid-column: 1 / -1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

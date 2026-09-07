@@ -26,11 +26,16 @@ const Nav = styled.nav`
 `;
 
 const Logo = styled(motion.div)`
-  font-family: var(--font-secondary);
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  width: 42px;
+  height: 42px;
   cursor: pointer;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 const NavLinks = styled.div`
@@ -181,10 +186,12 @@ const Header = () => {
       <Nav>
         <Logo
           onClick={() => scrollToSection('home')}
+          role="button"
+          aria-label="Go to home"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          Basel Mostafa
+          <img src="/favicon.svg" alt="" />
         </Logo>
 
         <NavLinks>

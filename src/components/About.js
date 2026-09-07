@@ -104,19 +104,46 @@ const AboutImage = styled(motion.div)`
   align-items: center;
 `;
 
+const ExperiencePanel = styled.div`
+  width: 100%;
+  max-width: 430px;
+  padding: var(--spacing-lg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  background: var(--bg-primary);
+`;
+
+const ExperienceHeading = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  color: var(--text-primary);
+  font-weight: 700;
+
+  span {
+    color: var(--success-color);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+`;
+
 const ImageGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--spacing-lg);
   width: 100%;
-  max-width: 360px;
 `;
 
 const ImageCard = styled(motion.div)`
-  background-color: var(--logo-surface);
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  align-items: center;
+  background-color: var(--bg-secondary);
   border-radius: var(--radius-md);
   overflow: hidden;
-  box-shadow: var(--shadow-md);
   border: 1px solid var(--border-color);
   isolation: isolate;
   transition: all var(--transition-fast);
@@ -129,8 +156,8 @@ const ImageCard = styled(motion.div)`
 
 const Image = styled.img`
   width: 100%;
-  height: 155px;
-  padding: var(--spacing-lg);
+  height: 92px;
+  padding: var(--spacing-md);
   object-fit: contain;
   filter: var(--logo-filter);
   mix-blend-mode: var(--logo-blend-mode);
@@ -138,12 +165,11 @@ const Image = styled.img`
 `;
 
 const ImageOverlay = styled.div`
-  background-color: var(--bg-tertiary);
   color: var(--text-primary);
-  padding: var(--spacing-sm) var(--spacing-md);
-  font-size: 0.9rem;
+  padding: var(--spacing-md);
+  font-size: 1rem;
   font-weight: 600;
-  text-align: center;
+  text-align: left;
 `;
 
 const About = () => {
@@ -231,38 +257,44 @@ const About = () => {
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <ImageGrid>
-              {organizations.map((org, index) => (
-                <ImageCard
-                  key={org.name}
-                  whileHover={{ scale: 1.05 }}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={inView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
-                >
-                  <Image 
-                    src={org.image} 
-                    alt={org.name}
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.nextSibling.style.display = 'flex';
-                    }}
-                  />
-                  <div style={{ 
-                    display: 'none', 
-                    width: '100%', 
-                    height: '150px', 
-                    backgroundColor: 'var(--bg-tertiary)',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '2rem'
-                  }}>
-                    🏢
-                  </div>
-                  <ImageOverlay>{org.name}</ImageOverlay>
-                </ImageCard>
-              ))}
-            </ImageGrid>
+            <ExperiencePanel>
+              <ExperienceHeading>
+                Current Experience
+                <span>Active</span>
+              </ExperienceHeading>
+              <ImageGrid>
+                {organizations.map((org, index) => (
+                  <ImageCard
+                    key={org.name}
+                    whileHover={{ y: -3 }}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={inView ? { opacity: 1, scale: 1 } : {}}
+                    transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
+                  >
+                    <Image 
+                      src={org.image} 
+                      alt={org.name}
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.nextSibling.style.display = 'flex';
+                      }}
+                    />
+                    <div style={{ 
+                      display: 'none', 
+                      width: '100%', 
+                      height: '92px', 
+                      backgroundColor: 'var(--bg-tertiary)',
+                      alignItems: 'center', 
+                      justifyContent: 'center',
+                      fontSize: '1.5rem'
+                    }}>
+                      ?
+                    </div>
+                    <ImageOverlay>{org.name}</ImageOverlay>
+                  </ImageCard>
+                ))}
+              </ImageGrid>
+            </ExperiencePanel>
           </AboutImage>
         </AboutContent>
       </Container>

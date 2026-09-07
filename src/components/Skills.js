@@ -287,10 +287,10 @@ const Skills = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <SectionTitle>How I Work in a SOC</SectionTitle>
+          <SectionTitle>SOC Capability Dashboard</SectionTitle>
           <SectionSubtitle>
-            My skills connect as an investigation loop: visibility creates evidence, evidence creates
-            detections, and validation turns a rule into something a team can trust.
+            A quick view of how I collect evidence, investigate activity, and build detections as a
+            Blue Team practitioner.
           </SectionSubtitle>
         </SectionHeader>
 

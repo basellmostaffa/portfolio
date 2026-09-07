@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin } from 'react-icons/fa';;
+import { FaGithub, FaLinkedin, FaDownload } from 'react-icons/fa';
 
 const HeroSection = styled.section`
   min-height: 100vh;
@@ -81,6 +81,39 @@ const CTAButton = styled(motion.button)`
     transform: translateY(-2px);
     box-shadow: var(--shadow-lg);
   }
+`;
+
+const SecondaryButton = styled(motion.a)`
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 var(--spacing-xl) var(--spacing-sm);
+  transition: all var(--transition-fast);
+
+  &:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+  }
+`;
+
+const StoryNote = styled(motion.p)`
+  color: var(--text-secondary);
+  border-left: 3px solid var(--accent-color);
+  padding-left: var(--spacing-md);
+  margin: 0 0 var(--spacing-xl);
+  max-width: 540px;
+  line-height: 1.7;
 `;
 
 const SocialLinks = styled(motion.div)`
@@ -233,26 +266,46 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
           >
-            I build detection, then try to break it. I am a cybersecurity undergraduate building a
-            practical path into Blue Team security operations through SOC incident response training,
-            a home SOC lab, and hands-on detection engineering.
+            I am a cybersecurity student building a practical path into Blue Team operations.
+            My work connects the real-world discipline of supporting 600+ users with the investigative
+            mindset of a SOC analyst: collect the evidence, understand the behavior, and test the detection.
           </Description>
+
+          <StoryNote
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+          >
+            From imaging endpoints and troubleshooting networks at Pinnacle Misr, to building a
+            multi-VM SOC lab with Wazuh, Elastic, and FortiGate, I document the full path from signal to story.
+          </StoryNote>
           
           <CTAButton
             onClick={() => scrollToSection('projects')}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
+            transition={{ duration: 0.6, delay: 0.9 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             Explore My Work
           </CTAButton>
+
+          <SecondaryButton
+            href="/Basel_Mostafa_Ibrahim_CV.pdf"
+            download
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1 }}
+          >
+            <FaDownload />
+            Download CV
+          </SecondaryButton>
           
           <SocialLinks
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1 }}
+            transition={{ duration: 0.6, delay: 1.1 }}
           >
             {socialLinks.map((social, index) => (
               <SocialLink

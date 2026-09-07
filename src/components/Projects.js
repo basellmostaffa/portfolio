@@ -94,6 +94,67 @@ const ProjectContent = styled.div`
   padding: var(--spacing-xl);
 `;
 
+const ProjectVisual = styled.div`
+  height: 210px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0b1324, #102c3d);
+  border-bottom: 1px solid var(--border-color);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+`;
+
+const GalleryThumbs = styled.div`
+  display: flex;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
+  overflow-x: auto;
+`;
+
+const GalleryThumb = styled.button`
+  width: 56px;
+  height: 40px;
+  flex: 0 0 auto;
+  padding: 0;
+  overflow: hidden;
+  border: 2px solid ${({ $active }) => ($active ? 'var(--primary-color)' : 'var(--border-color)')};
+  border-radius: var(--radius-sm);
+  opacity: ${({ $active }) => ($active ? 1 : 0.65)};
+  transition: all var(--transition-fast);
+
+  &:hover {
+    opacity: 1;
+    border-color: var(--primary-color);
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+`;
+
+const Evidence = styled.div`
+  position: absolute;
+  inset: 0;
+  padding: var(--spacing-lg);
+  color: #7dd3fc;
+  font-family: monospace;
+  font-size: 0.82rem;
+  line-height: 1.8;
+  background: repeating-linear-gradient(0deg, rgba(125, 211, 252, 0.04) 0 1px, transparent 1px 5px);
+
+  span {
+    color: #86efac;
+  }
+`;
+
 const ProjectTitle = styled.h3`
   font-size: 1.3rem;
   font-weight: 700;
@@ -151,6 +212,48 @@ const ProjectButton = styled.a`
   }
 `;
 
+const ProjectGallery = ({ project }) => {
+  const [activeImage, setActiveImage] = useState(0);
+  const images = project.images || [project.image];
+
+  return (
+    <>
+      <ProjectVisual>
+        <img
+          src={images[activeImage]}
+          alt={`${project.title} screenshot ${activeImage + 1}`}
+          loading="lazy"
+          onError={(event) => { event.currentTarget.style.display = 'none'; }}
+        />
+        <Evidence>
+          {project.evidence.map((line) => <div key={line}>&gt; <span>{line}</span></div>)}
+        </Evidence>
+      </ProjectVisual>
+
+      {images.length > 1 && (
+        <GalleryThumbs aria-label={`${project.title} screenshots`}>
+          {images.map((image, index) => (
+            <GalleryThumb
+              key={image}
+              type="button"
+              $active={activeImage === index}
+              onClick={() => setActiveImage(index)}
+              aria-label={`Show screenshot ${index + 1}`}
+            >
+              <img
+                src={image}
+                alt=""
+                loading="lazy"
+                onError={(event) => { event.currentTarget.style.display = 'none'; }}
+              />
+            </GalleryThumb>
+          ))}
+        </GalleryThumbs>
+      )}
+    </>
+  );
+};
+
 const Projects = () => {
   const [ref, inView] = useInView({
     threshold: 0.3,
@@ -172,6 +275,15 @@ const Projects = () => {
       description: "Elastic SIEM detection rules written against real telemetry, validated by reproducing each technique, and mapped to MITRE ATT&CK.",
       category: "soc",
       technologies: ["Elastic SIEM", "KQL", "MITRE ATT&CK", "Sysmon"],
+      images: [
+        "/Detection%20Rules/rule-01-alert.png.png",
+        "/Detection%20Rules/rule-01-config.png",
+        "/Detection%20Rules/rule-01-trigger.png",
+        "/Detection%20Rules/rule-02-alert.png.png",
+        "/Detection%20Rules/rule-02-config.png",
+        "/Detection%20Rules/rule-02-trigger.png"
+      ],
+      evidence: ["rule.status: validated", "event.code: 4625", "coverage: ATT&CK"],
       github: "https://github.com/basellmostaffa/detection-rules"
     },
     {
@@ -180,6 +292,13 @@ const Projects = () => {
       description: "An end-to-end home SOC build with Fleet-managed log ingestion across a Windows domain and a brute-force detection validated through attack reproduction.",
       category: "soc",
       technologies: ["Elastic", "Fleet", "Windows Server", "Active Directory"],
+      images: [
+        "/SIEM%20Deployement/Deployment%20Documentation/detection-alert.jpg",
+        "/SIEM%20Deployement/Deployment%20Documentation/discover-events.jpg",
+        "/SIEM%20Deployement/Deployment%20Documentation/fleet-agents.png",
+        "/SIEM%20Deployement/Deployment%20Documentation/service-status.png"
+      ],
+      evidence: ["agents: 5 endpoints", "gateway: FortiGate", "pipeline: healthy"],
       github: "https://github.com/basellmostaffa/elastic-siem-deployment"
     },
     {
@@ -188,6 +307,11 @@ const Projects = () => {
       description: "A two-branch enterprise network in Cisco Packet Tracer using OSPF, VLANs, inter-VLAN routing, and ACL security.",
       category: "network",
       technologies: ["Cisco Packet Tracer", "OSPF", "VLANs", "ACLs"],
+      images: [
+        "/Multi-Branch%20Network/topolgy.png",
+        "/Multi-Branch%20Network/ping-test.png"
+      ],
+      evidence: ["branches: 2", "routing: OSPF", "access: hardened"],
       github: "https://github.com/basellmostaffa/Multi-Branch-University"
     }
   ];
@@ -230,6 +354,7 @@ const Projects = () => {
                 key={project.id}
                 whileHover={{ y: -6 }}
               >
+                <ProjectGallery project={project} />
                 <ProjectContent>
                   <ProjectTitle>{project.title}</ProjectTitle>
                   <ProjectDescription>{project.description}</ProjectDescription>

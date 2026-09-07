@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { FaSearch, FaShieldAlt, FaBullseye, FaNetworkWired, FaServer, FaCode } from 'react-icons/fa';
+import { FaSearch, FaShieldAlt, FaBullseye, FaNetworkWired, FaServer, FaCode, FaArrowRight } from 'react-icons/fa';
 
 const SkillsSection = styled.section`
   padding: var(--spacing-3xl) 0;
@@ -38,8 +38,34 @@ const SectionSubtitle = styled.p`
 
 const SkillsGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: minmax(280px, 0.8fr) minmax(320px, 1.2fr);
   gap: var(--spacing-xl);
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const Workflow = styled.div`
+  display: grid;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-lg);
+`;
+
+const WorkflowStep = styled.div`
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+
+  svg {
+    color: var(--accent-color);
+  }
 `;
 
 const SkillCard = styled(motion.div)`
@@ -53,6 +79,12 @@ const SkillCard = styled(motion.div)`
     transform: translateY(-5px);
     box-shadow: var(--shadow-lg);
   }
+`;
+
+const WorkflowCard = styled(SkillCard)`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 const SkillHeader = styled.div`
@@ -90,28 +122,20 @@ const SkillLevel = styled.p`
   color: var(--text-muted);
 `;
 
-const ProgressContainer = styled.div`
-  width: 100%;
-  height: 8px;
-  background-color: var(--bg-tertiary);
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  margin-bottom: var(--spacing-sm);
-`;
-
-const ProgressBar = styled(motion.div)`
-  height: 100%;
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-  border-radius: var(--radius-sm);
-  transform-origin: left;
-`;
-
-const ProgressText = styled.div`
+const ToolList = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.9rem;
-  color: var(--text-muted);
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-top: auto;
+`;
+
+const ToolTag = styled.span`
+  padding: var(--spacing-xs) var(--spacing-sm);
+  color: var(--text-secondary);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
 `;
 
 const Skills = () => {
@@ -123,45 +147,45 @@ const Skills = () => {
   const skills = [
     {
       name: "Detection Engineering",
-      level: 75,
-      description: "Elastic SIEM, KQL, Sysmon telemetry, rule validation, false-positive tuning",
+      description: "Turn endpoint telemetry into tested, explainable detections.",
       icon: FaSearch,
-      color: "#0ea5e9"
+      color: "#0ea5e9",
+      tools: ["Wazuh", "Elastic", "KQL", "Sysmon"]
     },
     {
       name: "SOC & Incident Response",
-      level: 70,
-      description: "Alert triage, phishing analysis, SPF/DKIM/DMARC, sandbox analysis",
+      description: "Triage alerts, investigate behavior, and document the finding.",
       icon: FaShieldAlt,
-      color: "#14b8a6"
+      color: "#14b8a6",
+      tools: ["Alert triage", "IR notes", "IoCs", "Reporting"]
     },
     {
       name: "MITRE ATT&CK",
-      level: 70,
-      description: "Technique mapping, attack reproduction, indicators, detection coverage",
+      description: "Map observed behavior to techniques and validate coverage.",
       icon: FaBullseye,
-      color: "#f59e0b"
+      color: "#f59e0b",
+      tools: ["ATT&CK", "Attack validation", "IoC enrichment"]
     },
     {
       name: "Networking (CCNA)",
-      level: 65,
-      description: "TCP/IP, VLANs, OSPF, ACLs, subnetting, Cisco Packet Tracer",
+      description: "Understand the network context behind every suspicious event.",
       icon: FaNetworkWired,
-      color: "#2563eb"
+      color: "#2563eb",
+      tools: ["VLANs", "OSPF", "ACLs", "FortiGate"]
     },
     {
       name: "Systems & Infrastructure",
-      level: 70,
-      description: "Windows Server 2022, Active Directory, Fleet-managed agents, Linux",
+      description: "Build and operate the systems that generate useful security signals.",
       icon: FaServer,
-      color: "#8b5cf6"
+      color: "#8b5cf6",
+      tools: ["Windows Server", "AD", "Linux", "VMware"]
     },
     {
       name: "Web Development",
-      level: 60,
-      description: "HTML, CSS, JavaScript, Bootstrap, responsive interfaces",
+      description: "A supporting skill for clear security tooling and documentation.",
       icon: FaCode,
-      color: "#64748b"
+      color: "#64748b",
+      tools: ["Python", "PowerShell", "Git", "JavaScript"]
     }
   ];
 
@@ -173,14 +197,35 @@ const Skills = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <SectionTitle>My Skills</SectionTitle>
+          <SectionTitle>How I Work in a SOC</SectionTitle>
           <SectionSubtitle>
-            A practical toolbox for investigating activity, building visibility, and turning telemetry
-            into detections that can be tested and trusted.
+            My skills connect as an investigation loop: visibility creates evidence, evidence creates
+            detections, and validation turns a rule into something a team can trust.
           </SectionSubtitle>
         </SectionHeader>
 
         <SkillsGrid>
+          <WorkflowCard
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+          >
+            <div>
+              <SkillHeader>
+                <SkillIcon><FaShieldAlt /></SkillIcon>
+                <SkillInfo>
+                  <SkillName>Signal to Story</SkillName>
+                  <SkillLevel>My practical Blue Team workflow</SkillLevel>
+                </SkillInfo>
+              </SkillHeader>
+              <Workflow>
+                {['Collect telemetry', 'Triage the alert', 'Investigate behavior', 'Map the technique', 'Test the detection'].map((step) => (
+                  <WorkflowStep key={step}><FaArrowRight />{step}</WorkflowStep>
+                ))}
+              </Workflow>
+            </div>
+          </WorkflowCard>
+
           {skills.map((skill, index) => (
             <SkillCard
               key={skill.name}
@@ -199,18 +244,9 @@ const Skills = () => {
                 </SkillInfo>
               </SkillHeader>
 
-              <ProgressContainer>
-                <ProgressBar
-                  initial={{ scaleX: 0 }}
-                  animate={inView ? { scaleX: skill.level / 100 } : { scaleX: 0 }}
-                  transition={{ duration: 1, delay: 0.5 + index * 0.1 }}
-                />
-              </ProgressContainer>
-
-              <ProgressText>
-                <span>Proficiency</span>
-                <span>{skill.level}%</span>
-              </ProgressText>
+              <ToolList>
+                {skill.tools.map((tool) => <ToolTag key={tool}>{tool}</ToolTag>)}
+              </ToolList>
             </SkillCard>
           ))}
         </SkillsGrid>

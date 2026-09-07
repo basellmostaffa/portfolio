@@ -129,7 +129,8 @@ const SkillsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--spacing-xl);
-  align-items: start;
+  align-items: stretch;
+  padding: var(--spacing-xl);
 
   @media (max-width: 900px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -137,6 +138,7 @@ const SkillsGrid = styled.div`
 
   @media (max-width: 600px) {
     grid-template-columns: 1fr;
+    padding: var(--spacing-lg);
   }
 `;
 
@@ -170,6 +172,7 @@ const WorkflowStep = styled.div`
 const SkillCard = styled(motion.div)`
   background-color: var(--bg-secondary);
   min-height: 190px;
+  height: 100%;
   padding: var(--spacing-xl);
   border-radius: var(--radius-xl);
   border: 1px solid var(--border-color);

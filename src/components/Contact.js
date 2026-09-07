@@ -213,6 +213,10 @@ const SuccessMessage = styled(motion.div)`
   margin-top: var(--spacing-lg);
 `;
 
+const SubmitErrorMessage = styled(SuccessMessage)`
+  background-color: var(--error-color);
+`;
+
 const Contact = () => {
   const [ref, inView] = useInView({
     threshold: 0.3,
@@ -229,6 +233,7 @@ const Contact = () => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   const contactInfo = [
     {
@@ -314,16 +319,39 @@ const Contact = () => {
     if (!validateForm()) return;
 
     setIsSubmitting(true);
+    setIsSuccess(false);
+    setSubmitError('');
 
-    const mailto = `mailto:baselmostafa16@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`
-    )}`;
+    try {
+      const response = await fetch('https://formspree.io/f/xrpgyolj', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          ...formData,
+          _subject: `Portfolio inquiry: ${formData.subject}`
+        })
+      });
 
-    window.location.href = mailto;
-    setIsSubmitting(false);
-    setIsSuccess(true);
+      if (!response.ok) {
+        throw new Error('Form submission failed');
+      }
 
-    setTimeout(() => setIsSuccess(false), 5000);
+      setIsSuccess(true);
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
+      setTimeout(() => setIsSuccess(false), 5000);
+    } catch (error) {
+      setSubmitError('Something went wrong. Please email me directly at baselmostafa16@gmail.com.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -454,8 +482,18 @@ const Contact = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                Your email app should open with the message. Send it there to complete the inquiry.
+                Your message was sent successfully. I will get back to you soon.
               </SuccessMessage>
+            )}
+
+            {submitError && (
+              <SubmitErrorMessage
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                {submitError}
+              </SubmitErrorMessage>
             )}
           </ContactForm>
         </ContactContent>

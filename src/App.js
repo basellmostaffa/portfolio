@@ -6,6 +6,7 @@ import styled from 'styled-components';
 // Components
 import Header from './components/Header';
 import Hero from './components/Hero';
+import SOCConsole from './components/SOCConsole';
 import About from './components/About';
 import Skills from './components/Skills';
 import Services from './components/Services';
@@ -65,6 +66,7 @@ function App() {
               <Route path="/" element={
                 <>
                   <Hero />
+                  <SOCConsole />
                   <About />
                   <Skills />
                   <Services />

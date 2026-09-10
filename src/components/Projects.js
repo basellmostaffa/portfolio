@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { useLanguage } from '../context/LanguageContext';
 
 const ProjectsSection = styled.section`
   padding: var(--spacing-3xl) 0;
@@ -271,7 +270,6 @@ const ProjectGallery = ({ project }) => {
 };
 
 const Projects = () => {
-  const { t } = useLanguage();
   const [ref, inView] = useInView({
     threshold: 0.3,
     triggerOnce: true
@@ -279,7 +277,11 @@ const Projects = () => {
 
   const [activeFilter, setActiveFilter] = useState('all');
 
-  const filters = ['all', 'soc', 'network'].map((id, index) => ({ id, label: t.projectFilter[index] }));
+  const filters = [
+    { id: 'all', label: 'All Projects' },
+    { id: 'soc', label: 'SOC' },
+    { id: 'network', label: 'Network & Cybersecurity' }
+  ];
 
   const projects = [
     {
@@ -341,9 +343,10 @@ const Projects = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <SectionTitle>{t.projectsTitle}</SectionTitle>
+          <SectionTitle>My Projects</SectionTitle>
           <SectionSubtitle>
-            {t.projectsSubtitle}
+            Selected work from my GitHub profile, with the strongest focus on detection engineering,
+            SOC lab building, and network security foundations.
           </SectionSubtitle>
         </SectionHeader>
 
@@ -379,7 +382,7 @@ const Projects = () => {
 
                   <ProjectLinks>
                     <ProjectButton href={project.github} target="_blank" rel="noopener noreferrer">
-                      {t.viewGithub}
+                      View on GitHub
                     </ProjectButton>
                   </ProjectLinks>
                 </ProjectContent>

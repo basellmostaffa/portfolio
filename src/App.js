@@ -15,7 +15,6 @@ import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import ThemeToggle from './components/ThemeToggle';
 import SOCLab from './components/SOCLab';
-import { LanguageProvider } from './context/LanguageContext';
 
 // Context
 import { ThemeContext } from './context/ThemeContext';
@@ -50,7 +49,6 @@ function App() {
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <LanguageProvider>
       <Router>
         <AppContainer>
           <Helmet>
@@ -83,7 +81,6 @@ function App() {
           <ScrollToTop />
         </AppContainer>
       </Router>
-      </LanguageProvider>
     </ThemeContext.Provider>
   );
 }

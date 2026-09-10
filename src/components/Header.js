@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import LanguageToggle from './LanguageToggle';
-import { useLanguage } from '../context/LanguageContext';
 
 const HeaderContainer = styled(motion.header)`
   position: fixed;
@@ -134,7 +132,6 @@ const MobileNavLink = styled.a`
 `;
 
 const Header = () => {
-  const { t } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -168,7 +165,13 @@ const Header = () => {
     setIsMobileMenuOpen(false);
   };
 
-  const navItems = ['home', 'about', 'skills', 'projects', 'contact'].map((id, index) => ({ id, label: t.nav[index] }));
+  const navItems = [
+    { id: 'home', label: 'Home' },
+    { id: 'about', label: 'About' },
+    { id: 'skills', label: 'Skills' },
+    { id: 'projects', label: 'Projects' },
+    { id: 'contact', label: 'Contact' }
+  ];
 
   return (
     <HeaderContainer
@@ -202,7 +205,6 @@ const Header = () => {
               {item.label}
             </NavLink>
           ))}
-          <LanguageToggle />
         </NavLinks>
 
         <MobileMenuButton
@@ -223,7 +225,6 @@ const Header = () => {
             {item.label}
           </MobileNavLink>
         ))}
-        <LanguageToggle />
       </MobileMenu>
     </HeaderContainer>
   );

@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FaDesktop, FaNetworkWired, FaShieldAlt, FaServer, FaArrowRight } from 'react-icons/fa';
-import { useLanguage } from '../context/LanguageContext';
 
 const Section = styled.section`padding: var(--spacing-3xl) 0; background: var(--bg-primary);`;
 const Container = styled.div`max-width: 1200px; margin: 0 auto; padding: 0 var(--spacing-md); text-align: center;`;
@@ -13,8 +12,7 @@ const Node = styled.div`padding: var(--spacing-xl); border: 1px solid var(--bord
 const Flow = styled.p`margin-top: var(--spacing-xl); padding: var(--spacing-lg); border-left: 3px solid var(--accent-color); background: var(--bg-secondary); color: var(--text-secondary); text-align: start; border-radius: 0 var(--radius-md) var(--radius-md) 0;`;
 
 const SOCLab = () => {
-  const { t } = useLanguage();
-  const nodes = [[FaDesktop, t.endpoints, t.endpointDetail], [FaNetworkWired, t.telemetry, t.telemetryDetail], [FaServer, t.siem, t.siemDetail], [FaShieldAlt, t.firewall, t.firewallDetail]];
-  return <Section id="soc-lab"><Container><Title>{t.labTitle}</Title><Subtitle>{t.labSubtitle}</Subtitle><Architecture initial={{opacity:0,y:24}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{duration:.6}}>{nodes.map(([Icon,title,detail]) => <Node key={title}><Icon /><strong>{title}</strong><span>{detail}</span></Node>)}</Architecture><Flow><FaArrowRight aria-hidden="true" /> {t.labFlow}</Flow></Container></Section>;
+  const nodes = [[FaDesktop, 'Monitored endpoints', 'Windows clients and servers'], [FaNetworkWired, 'Telemetry collection', 'Sysmon events and agent logs'], [FaServer, 'SIEM & detection', 'Elastic, Wazuh and KQL rules'], [FaShieldAlt, 'FortiGate perimeter firewall', 'FortiGate network context']];
+  return <Section id="soc-lab"><Container><Title>Home SOC Lab Architecture</Title><Subtitle>A practical detection pipeline: endpoint activity becomes evidence, then a validated alert.</Subtitle><Architecture initial={{opacity:0,y:24}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{duration:.6}}>{nodes.map(([Icon,title,detail]) => <Node key={title}><Icon /><strong>{title}</strong><span>{detail}</span></Node>)}</Architecture><Flow><FaArrowRight aria-hidden="true" /> Attack simulation → alert triage → investigation notes → MITRE ATT&CK mapping → detection validation</Flow></Container></Section>;
 };
 export default SOCLab;

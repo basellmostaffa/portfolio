@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FaSearch, FaShieldAlt, FaBullseye, FaNetworkWired, FaServer, FaTerminal, FaArrowRight } from 'react-icons/fa';
-import { useLanguage } from '../context/LanguageContext';
 
 const SkillsSection = styled.section`
   padding: var(--spacing-3xl) 0;
@@ -253,7 +252,6 @@ const ToolTag = styled.span`
 `;
 
 const Skills = () => {
-  const { t } = useLanguage();
   const [ref, inView] = useInView({
     threshold: 0.3,
     triggerOnce: true
@@ -261,37 +259,43 @@ const Skills = () => {
 
   const skills = [
     {
-      name: t.skillNames[0], description: t.skillDescriptions[0],
+      name: "Detection Engineering",
+      description: "Turn endpoint telemetry into tested, explainable detections.",
       icon: FaSearch,
       color: "#0ea5e9",
       tools: ["Wazuh", "Elastic", "KQL", "Sysmon"]
     },
     {
-      name: t.skillNames[1], description: t.skillDescriptions[1],
+      name: "SOC & Incident Response",
+      description: "Triage alerts, investigate behavior, and document the finding.",
       icon: FaShieldAlt,
       color: "#14b8a6",
       tools: ["Alert triage", "IR notes", "IoCs", "Reporting"]
     },
     {
-      name: t.skillNames[2], description: t.skillDescriptions[2],
+      name: "MITRE ATT&CK",
+      description: "Map observed behavior to techniques and validate coverage.",
       icon: FaBullseye,
       color: "#f59e0b",
       tools: ["ATT&CK", "Attack validation", "IoC enrichment"]
     },
     {
-      name: t.skillNames[3], description: t.skillDescriptions[3],
+      name: "Networking (CCNA)",
+      description: "Understand the network context behind every suspicious event.",
       icon: FaNetworkWired,
       color: "#2563eb",
       tools: ["VLANs", "OSPF", "ACLs", "FortiGate"]
     },
     {
-      name: t.skillNames[4], description: t.skillDescriptions[4],
+      name: "Systems & Infrastructure",
+      description: "Build and operate the systems that generate useful security signals.",
       icon: FaServer,
       color: "#8b5cf6",
       tools: ["Windows Server", "AD", "Linux", "VMware"]
     },
     {
-      name: t.skillNames[5], description: t.skillDescriptions[5],
+      name: "Security Automation & Scripting",
+      description: "Use lightweight scripts to support investigation and repeatable lab work.",
       icon: FaTerminal,
       color: "#64748b",
       tools: ["Python", "PowerShell", "CMD", "Git"]
@@ -306,9 +310,10 @@ const Skills = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <SectionTitle>{t.skillsTitle}</SectionTitle>
+          <SectionTitle>SOC Capability Dashboard</SectionTitle>
           <SectionSubtitle>
-            {t.skillsSubtitle}
+            A quick view of how I collect evidence, investigate activity, and build detections as a
+            Blue Team practitioner.
           </SectionSubtitle>
         </SectionHeader>
 

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaDownload } from 'react-icons/fa';
-import { useLanguage } from '../context/LanguageContext';
 
 const HeroSection = styled.section`
   min-height: 100vh;
@@ -259,15 +258,9 @@ const BackgroundDecoration = styled.div`
 
 
 const Hero = () => {
-  const { t } = useLanguage();
   const [text, setText] = useState('');
-  const fullText = t.heroTitle;
+  const fullText = "SOC Internship Candidate | Blue Team | Detection Engineering";
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    setText('');
-    setCurrentIndex(0);
-  }, [fullText]);
 
   useEffect(() => {
     if (currentIndex < fullText.length) {
@@ -305,7 +298,7 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            {t.heroAvailability}
+            Open to SOC Level 1 internships
           </Availability>
 
           <Greeting
@@ -313,7 +306,7 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            {t.heroGreeting}
+            👋 Hello, I'm
           </Greeting>
           
           <Name
@@ -338,7 +331,9 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
           >
-            {t.heroDescription}
+            I am a cybersecurity undergraduate turning hands-on IT experience into a focused path
+            toward SOC operations. I support real users by day, then build and test detections in my
+            home lab to understand what suspicious activity looks like in the evidence.
           </Description>
 
           <StoryNote
@@ -346,7 +341,8 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}
           >
-            {t.heroStory}
+            The story so far: endpoint deployment and infrastructure support at Pinnacle Misr,
+            incident-response training at DEPI, and a multi-VM SOC lab built with Wazuh, Elastic, and FortiGate.
           </StoryNote>
           
           <CTAButton
@@ -357,7 +353,7 @@ const Hero = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            {t.explore}
+            Explore My Work
           </CTAButton>
 
           <SecondaryButton
@@ -368,7 +364,7 @@ const Hero = () => {
             transition={{ duration: 0.6, delay: 1 }}
           >
             <FaDownload />
-            {t.download}
+            Download CV
           </SecondaryButton>
           
           <SocialLinks

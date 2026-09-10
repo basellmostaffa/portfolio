@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaHeart } from 'react-icons/fa';
+import { useLanguage } from '../context/LanguageContext';
 
 const FooterContainer = styled.footer`
   background-color: var(--bg-primary);
@@ -129,17 +130,14 @@ const HeartIcon = styled(FaHeart)`
 `;
 
 const Footer = () => {
+  const { t } = useLanguage();
   const socialLinks = [
     { icon: FaGithub, url: 'https://github.com/basellmostaffa', label: 'GitHub' },
     { icon: FaLinkedin, url: 'https://www.linkedin.com/in/baselmostafa/', label: 'LinkedIn' },
   ];
 
   const quickLinks = [
-    { label: 'Home', href: '#home' },
-    { label: 'About', href: '#about' },
-    { label: 'Skills', href: '#skills' },
-    { label: 'Projects', href: '#projects' },
-    { label: 'Contact', href: '#contact' }
+    { label: t.nav[0], href: '#home' }, { label: t.nav[1], href: '#about' }, { label: t.nav[2], href: '#skills' }, { label: t.nav[3], href: '#projects' }, { label: t.nav[4], href: '#contact' }
   ];
 
   const scrollToSection = (sectionId) => {
@@ -156,8 +154,7 @@ const Footer = () => {
           <FooterSection>
             <FooterTitle>Basel Mostafa</FooterTitle>
             <FooterText>
-              SOC Analyst candidate focused on Blue Team operations, detection engineering, and
-              practical cybersecurity labs.
+              {t.footer}
             </FooterText>
             <SocialLinks>
               {socialLinks.map((social, index) => (
@@ -180,7 +177,7 @@ const Footer = () => {
           </FooterSection>
 
           <FooterSection>
-            <FooterTitle>Quick Links</FooterTitle>
+            <FooterTitle>{t.quickLinks}</FooterTitle>
             <QuickLinks>
               {quickLinks.map((link) => (
                 <QuickLink key={link.label}>
@@ -193,7 +190,7 @@ const Footer = () => {
           </FooterSection>
 
           <FooterSection>
-            <FooterTitle>Contact Info</FooterTitle>
+            <FooterTitle>{t.contactInfo}</FooterTitle>
             <ContactInfo>
               <ContactItem>
                 <span>📍</span>
@@ -213,8 +210,7 @@ const Footer = () => {
 
         <FooterBottom>
           <Copyright>
-            © {new Date().getFullYear()} Basel Mostafa. All rights reserved. 
-            Made with <HeartIcon /> using React
+            © {new Date().getFullYear()} Basel Mostafa. {t.rights} {t.madeWith} <HeartIcon /> React
           </Copyright>
         </FooterBottom>
       </Container>

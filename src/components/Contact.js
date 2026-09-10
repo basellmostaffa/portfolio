@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { useLanguage } from '../context/LanguageContext';
 import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaPaperPlane, FaLinkedin, FaGithub } from 'react-icons/fa';
 
 const ContactSection = styled.section`
@@ -218,6 +219,7 @@ const SubmitErrorMessage = styled(SuccessMessage)`
 `;
 
 const Contact = () => {
+  const { t } = useLanguage();
   const [ref, inView] = useInView({
     threshold: 0.3,
     triggerOnce: true
@@ -362,9 +364,9 @@ const Contact = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <SectionTitle>Get In Touch</SectionTitle>
+          <SectionTitle>{t.contactTitle}</SectionTitle>
           <SectionSubtitle>
-            Open to conversations about SOC operations, detection engineering, cybersecurity projects, and collaboration.
+            {t.contactSubtitle}
           </SectionSubtitle>
         </SectionHeader>
 
@@ -403,7 +405,7 @@ const Contact = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             <FormGroup>
-              <FormLabel htmlFor="name">Name *</FormLabel>
+              <FormLabel htmlFor="name">{t.form.name} *</FormLabel>
               <FormInput
                 type="text"
                 id="name"
@@ -411,13 +413,13 @@ const Contact = () => {
                 value={formData.name}
                 onChange={handleInputChange}
                 className={errors.name ? 'error' : ''}
-                placeholder="Your name"
+                placeholder={t.form.namePlaceholder}
               />
               {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
             </FormGroup>
 
             <FormGroup>
-              <FormLabel htmlFor="email">Email *</FormLabel>
+              <FormLabel htmlFor="email">{t.form.email} *</FormLabel>
               <FormInput
                 type="email"
                 id="email"
@@ -431,7 +433,7 @@ const Contact = () => {
             </FormGroup>
 
             <FormGroup>
-              <FormLabel htmlFor="subject">Subject *</FormLabel>
+              <FormLabel htmlFor="subject">{t.form.subject} *</FormLabel>
               <FormInput
                 type="text"
                 id="subject"
@@ -439,20 +441,20 @@ const Contact = () => {
                 value={formData.subject}
                 onChange={handleInputChange}
                 className={errors.subject ? 'error' : ''}
-                placeholder="Project inquiry"
+                placeholder={t.form.subjectPlaceholder}
               />
               {errors.subject && <ErrorMessage>{errors.subject}</ErrorMessage>}
             </FormGroup>
 
             <FormGroup>
-              <FormLabel htmlFor="message">Message *</FormLabel>
+              <FormLabel htmlFor="message">{t.form.message} *</FormLabel>
               <FormTextarea
                 id="message"
                 name="message"
                 value={formData.message}
                 onChange={handleInputChange}
                 className={errors.message ? 'error' : ''}
-                placeholder="Tell me about your project..."
+                placeholder={t.form.messagePlaceholder}
               />
               {errors.message && <ErrorMessage>{errors.message}</ErrorMessage>}
             </FormGroup>
@@ -466,12 +468,12 @@ const Contact = () => {
               {isSubmitting ? (
                 <>
                   <div className="spinner" style={{ width: '20px', height: '20px', border: '2px solid transparent', borderTop: '2px solid white', borderRadius: '50%', animation: 'spin 1s linear infinite' }}></div>
-                  Sending...
+                  {t.form.sending}
                 </>
               ) : (
                 <>
                   <FaPaperPlane />
-                  Send Message
+                  {t.form.send}
                 </>
               )}
             </SubmitButton>

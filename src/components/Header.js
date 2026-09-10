@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FaBars, FaTimes } from 'react-icons/fa';
+import LanguageToggle from './LanguageToggle';
+import { useLanguage } from '../context/LanguageContext';
 
 const HeaderContainer = styled(motion.header)`
   position: fixed;
@@ -132,6 +134,7 @@ const MobileNavLink = styled.a`
 `;
 
 const Header = () => {
+  const { t } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -141,7 +144,7 @@ const Header = () => {
       setIsScrolled(window.scrollY > 50);
       
       // Update active section based on scroll position
-      const sections = ['home', 'about', 'skills', 'projects', 'contact'];
+      const sections = ['home', 'about', 'soc-lab', 'skills', 'projects', 'contact'];
       const scrollPosition = window.scrollY + 100;
 
       for (let i = sections.length - 1; i >= 0; i--) {
@@ -165,13 +168,7 @@ const Header = () => {
     setIsMobileMenuOpen(false);
   };
 
-  const navItems = [
-    { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About' },
-    { id: 'skills', label: 'Skills' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'contact', label: 'Contact' }
-  ];
+  const navItems = ['home', 'about', 'skills', 'projects', 'contact'].map((id, index) => ({ id, label: t.nav[index] }));
 
   return (
     <HeaderContainer
@@ -205,6 +202,7 @@ const Header = () => {
               {item.label}
             </NavLink>
           ))}
+          <LanguageToggle />
         </NavLinks>
 
         <MobileMenuButton
@@ -225,6 +223,7 @@ const Header = () => {
             {item.label}
           </MobileNavLink>
         ))}
+        <LanguageToggle />
       </MobileMenu>
     </HeaderContainer>
   );

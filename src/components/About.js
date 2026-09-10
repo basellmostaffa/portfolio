@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { useLanguage } from '../context/LanguageContext';
 
 const AboutSection = styled.section`
   padding: var(--spacing-3xl) 0;
@@ -56,11 +57,6 @@ const AboutDescription = styled.p`
   color: var(--text-secondary);
   line-height: 1.8;
   margin-bottom: var(--spacing-lg);
-`;
-
-const HighlightText = styled.span`
-  color: var(--primary-color);
-  font-weight: 600;
 `;
 
 const StatsGrid = styled.div`
@@ -173,17 +169,13 @@ const ImageOverlay = styled.div`
 `;
 
 const About = () => {
+  const { t } = useLanguage();
   const [ref, inView] = useInView({
     threshold: 0.3,
     triggerOnce: true
   });
 
-  const stats = [
-    { number: "600+", label: "Users Supported" },
-    { number: "20+", label: "Workstations Deployed" },
-    { number: "4", label: "Malware Reports" },
-    { number: "2027", label: "Expected Graduation" }
-  ];
+  const stats = ["600+", "20+", "4", "2027"].map((number, index) => ({ number, label: t.stats[index] }));
 
   const organizations = [
     { name: "Pinnacle Misr", image: "/images/pinnacle-misr.jpg" },
@@ -198,10 +190,9 @@ const About = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <SectionTitle>From IT Support to SOC</SectionTitle>
+          <SectionTitle>{t.aboutTitle}</SectionTitle>
           <SectionSubtitle>
-              Cybersecurity undergraduate, SOC Analyst candidate, and IT Support &amp; System Administration
-              Intern building practical experience across security operations and live IT environments.
+              {t.aboutSubtitle}
           </SectionSubtitle>
         </SectionHeader>
 
@@ -211,30 +202,7 @@ const About = () => {
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <AboutDescription>
-              I'm a <HighlightText>cybersecurity undergraduate</HighlightText> at Arab Open University building
-              a practical path into <HighlightText>Blue Team security operations</HighlightText>. My foundation
-              includes the <HighlightText>CCNA curriculum</HighlightText>, Windows Server, Active Directory,
-              and Linux administration.
-            </AboutDescription>
-            
-            <AboutDescription>
-              In my home SOC lab, I build visibility with <HighlightText>Sysmon and Elastic SIEM</HighlightText>,
-              write and tune detection rules, reproduce techniques to validate coverage, and map findings to
-              <HighlightText>MITRE ATT&amp;CK</HighlightText>.
-            </AboutDescription>
-
-            <AboutDescription>
-              I am currently a <HighlightText>Cyber Security Incident Response Analyst Trainee at DEPI</HighlightText>,
-              covering network and OS fundamentals, security and attack techniques, incident response,
-              digital forensics, and SIEM/SOC operations. I was selected as group leader for a five-member capstone team.
-            </AboutDescription>
-
-            <AboutDescription>
-              Alongside DEPI, I work as an <HighlightText>IT Support &amp; System Administration Intern at Pinnacle Misr</HighlightText>,
-              supporting 600+ users across two Cairo offices and a Saudi branch. I deploy workstations, troubleshoot
-              endpoints and IP phones, assist with Active Directory, and work with switches, routers, and the perimeter firewall.
-            </AboutDescription>
+            {t.aboutParagraphs.map((paragraph) => <AboutDescription key={paragraph}>{paragraph}</AboutDescription>)}
 
             <StatsGrid>
               {stats.map((stat, index) => (
@@ -259,8 +227,8 @@ const About = () => {
           >
             <ExperiencePanel>
               <ExperienceHeading>
-                Current Experience
-                <span>Active</span>
+                {t.currentExperience}
+                <span>{t.active}</span>
               </ExperienceHeading>
               <ImageGrid>
                 {organizations.map((org, index) => (

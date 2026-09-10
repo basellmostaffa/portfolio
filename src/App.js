@@ -69,9 +69,9 @@ function App() {
                 <>
                   <Hero />
                   <SOCConsole />
+                  <Skills />
                   <SOCLab />
                   <About />
-                  <Skills />
                   <Projects />
                   <Contact />
                 </>
